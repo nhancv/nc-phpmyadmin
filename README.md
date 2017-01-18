@@ -1,3 +1,8 @@
+![Preview](phpmyadmin_screenshot.png)
+
+
+
+
 phpMyAdmin - Readme
 ===================
 
@@ -6,8 +11,6 @@ Version 4.6.5.2
 A web interface for MySQL and MariaDB.
 
 https://www.phpmyadmin.net/
-
-![Preview](https://raw.githubusercontent.com/nhancv/nc-phpmyadmin/master/phpmyadmin_screenshot.png)
 
 Summary
 -------
