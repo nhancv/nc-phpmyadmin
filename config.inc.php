@@ -32,7 +32,8 @@ $cfg['Servers'][$i]['host'] = 'localhost';
 $cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
-
+$cfg['Servers'][$i]['AllowNoPassword'] = true;
+$cfg['ThemeDefault']='original';
 /**
  * phpMyAdmin configuration storage settings.
  */
