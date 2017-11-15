@@ -4,9 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit241d90fc15f4a3706239389eb06f1ff6
+class ComposerStaticInitaa3ba4d49216f59584674c5e7ac9ac97
 {
     public static $files = array (
+        '32dcc8afd4335739640db7d200c1971d' => __DIR__ . '/..' . '/symfony/polyfill-apcu/bootstrap.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
     );
 
@@ -17,6 +19,8 @@ class ComposerStaticInit241d90fc15f4a3706239389eb06f1ff6
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Apcu\\' => 22,
             'Symfony\\Component\\ExpressionLanguage\\' => 37,
             'Symfony\\Component\\Cache\\' => 24,
         ),
@@ -26,6 +30,7 @@ class ComposerStaticInit241d90fc15f4a3706239389eb06f1ff6
         ),
         'P' => 
         array (
+            'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Cache\\' => 10,
             'PhpMyAdmin\\SqlParser\\' => 21,
@@ -40,6 +45,14 @@ class ComposerStaticInit241d90fc15f4a3706239389eb06f1ff6
         array (
             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
         ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Apcu\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-apcu',
+        ),
         'Symfony\\Component\\ExpressionLanguage\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/expression-language',
@@ -51,6 +64,10 @@ class ComposerStaticInit241d90fc15f4a3706239389eb06f1ff6
         'ReCaptcha\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha',
+        ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
         'Psr\\Log\\' => 
         array (
@@ -98,9 +115,9 @@ class ComposerStaticInit241d90fc15f4a3706239389eb06f1ff6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit241d90fc15f4a3706239389eb06f1ff6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit241d90fc15f4a3706239389eb06f1ff6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit241d90fc15f4a3706239389eb06f1ff6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitaa3ba4d49216f59584674c5e7ac9ac97::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitaa3ba4d49216f59584674c5e7ac9ac97::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitaa3ba4d49216f59584674c5e7ac9ac97::$classMap;
 
         }, null, ClassLoader::class);
     }

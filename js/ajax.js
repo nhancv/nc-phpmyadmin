@@ -313,7 +313,12 @@ var AJAX = {
             if (typeof onsubmit !== 'function' || onsubmit.apply(this, [event])) {
                 AJAX.active = true;
                 AJAX.$msgbox = PMA_ajaxShowMessage();
-                $.post(url, params, AJAX.responseHandler);
+                var method = $(this).attr('method');
+                if (typeof method !== 'undefined' && method.toLowerCase() === 'post') {
+                    $.post(url, params, AJAX.responseHandler);
+                } else {
+                    $.get(url, params, AJAX.responseHandler);
+                }
             }
         }
     },
@@ -573,13 +578,19 @@ var AJAX = {
                     needRequest = true;
                     this.add(script);
                     request.push("scripts%5B%5D=" + script);
+                    if (request.length >= 10) {
+                        // Download scripts in chunks
+                        this.appendScript(request);
+                        request = [];
+                        needRequest = false;
+                    }
                 }
             }
             request.push("call_done=1");
             request.push("v=" + encodeURIComponent(PMA_commonParams.get('PMA_VERSION')));
             // Download the composite js file, if necessary
             if (needRequest) {
-                this.appendScript("js/get_scripts.js.php?" + request.join("&"));
+                this.appendScript(request);
             } else {
                 self.done(callback);
             }
@@ -606,11 +617,14 @@ var AJAX = {
          *
          * @return void
          */
-        appendScript: function (url) {
+        appendScript: function (request) {
             var head = document.head || document.getElementsByTagName('head')[0];
             var script = document.createElement('script');
+
+            request.push("call_done=1");
+            request.push("v=" + encodeURIComponent(PMA_commonParams.get('PMA_VERSION')));
             script.type = 'text/javascript';
-            script.src = url;
+            script.src = "js/get_scripts.js.php?" + request.join("&");
             script.async = false;
             head.appendChild(script);
         },
@@ -786,13 +800,20 @@ $(document).ajaxError(function (event, request, settings) {
     }
     // Don't handle aborted requests
     if (request.status !== 0 || request.statusText !== 'abort') {
-        var errorCode = PMA_sprintf(PMA_messages.strErrorCode, request.status);
-        var errorText = PMA_sprintf(PMA_messages.strErrorText, request.statusText);
+        var details = ''
+        var state = request.state();
+
+        if (request.status !== 0) {
+            details += '<div>' + escapeHtml(PMA_sprintf(PMA_messages.strErrorCode, request.status)) + '</div>';
+        }
+        details += '<div>' + escapeHtml(PMA_sprintf(PMA_messages.strErrorText, request.statusText + ' (' + state + ')')) + '</div>';
+        if (state == 'rejected' || state == 'timeout') {
+            details += '<div>' + escapeHtml(PMA_messages.strErrorConnection) + '</div>';
+        }
         PMA_ajaxShowMessage(
             '<div class="error">' +
             PMA_messages.strErrorProcessingRequest +
-            '<div>' + escapeHtml(errorCode) + '</div>' +
-            '<div>' + escapeHtml(errorText) + '</div>' +
+            details +
             '</div>',
             false
         );
